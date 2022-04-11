@@ -1,3 +1,4 @@
+var mapSize = 60 * 60;
 // 規劃 opening 按按鈕開始 結束
 
 let gameInterval;
@@ -5,7 +6,7 @@ let gameInterval;
 function gamePlay() {
     //   每0.1秒 跑gameCalculate 算狀態
     gameInterval = setInterval(gameCalculate, 100);
-    console.log(1);
+    // console.log(1);
     console.log(gameInterval);
 }
 
@@ -57,12 +58,35 @@ function mapTable() {
     //蛇身
     for (var k = 0; k < snkaeLength; k++) {
         context.fillStyle = "#d25a32";
-        if (k == snkaeLength) {
+        // 蛇頭獨立
+        if (k == snkaeLength - 1) {
             context.fillStyle = "red";
-            ctx.fillRect(snkaeLength[k].x, snkaeLength[k].y, 10, 10);
+            // 前座標 後長寬
+
         }
+        ctx.fillRect(snkaeLength[k].x, snkaeLength[k].y, 10, 10);
     }
+
+    //暫時放點心圖案
+    context.fillStyle = "green";
+    contexte.fillRect(desertX, desertY, 10, 10);
+    context.fill();
+
 }
+//從哪裡開始動
+function start() {
+    // var snake =[]
+    // var snakeLength=3 蛇的剛開始長度(頭 身 尾巴)
+
+    for (var k = 0; k < snakckLength; k++) {
+        snake[k] = { x: k * 0, y: 0 };
+    }
+    // 啟動地圖
+    mapTable();
+    // 從開始的座標裡也啟動點心
+    addDesert();
+}
+
 
 
 // 累加點心
