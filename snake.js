@@ -1,19 +1,25 @@
-var mapSize = 60 * 60;
+// 60*60 格子
+var mapSize = 60;
+
+// 像素60*60
+var mapCount = 60;
 // 規劃 opening 按按鈕開始 結束
 
 let gameInterval;
-// 假設 按按鈕 就會執行playStart
+
 function gamePlay() {
-    //   每0.1秒 跑gameCalculate 算狀態
-    gameInterval = setInterval(gameCalculate, 100);
+    //   每0.1秒 跑gameRoutine 算狀態
+    gameInterval = setInterval(gameRoutine, 100);
     // console.log(1);
     console.log(gameInterval);
 }
 
-// 執行最新畫面
-function gameCalculate() {
-    latestCanvas();
+// 算狀態 畫畫面
+function gameRoutine() {
+    //moveSnake()
+    latestCanvas()
 }
+
 
 function latestCanvas() {
     var canvas = document.getElementById('canvasId');
@@ -23,16 +29,45 @@ function latestCanvas() {
     context.fillStyle = "black";
     //區塊 左上角x y坐標 到區塊的寬度 跟高度
     context.fillRect(0, 0, canvas.clientWidth, canvas.height);
-    context.lineTo(300, 300);
-    context.stroke();
+    context.fillStyle = "green";
+    for (var i = 0; i < snake.body.snkaeLength; i++) {
+        context.fillRect(
+            snake.body[i].x * mapSize,
+            snake.body[i].y * mapSize,
+            mapSize,
+            mapSize
+        )
+    }
+    // context.lineTo(300, 300);
+    // context.stroke();
     // console.log(context);
 }
+
 // 劃蛇&點心
 var snake = [];
 var snkaeLength = 4;
 var desertX = 0;
 var desertY = 0;
 var step = 0;
+
+
+// 假設 按按鈕 就會執行playStart
+// function gamePlay() {
+//     snake = {
+//         body: [
+//             { x: mapCount / 2, y: mapCount / 2 }
+//         ],
+//         size: 5,
+//         direction: { x: 0, y: -1 }
+//     }
+
+// }
+
+
+
+
+
+
 
 
 //
