@@ -74,6 +74,7 @@ function eatDesert() {
     snake.size += 1;
     putDesert();
     updateScore(score + 1);
+    console.log("成績", score);
 }
 
 
@@ -116,34 +117,39 @@ function latestCanvas() {
     context.fillRect(0, 0, canvas.width, canvas.height);
 
     context.fillStyle = "lime";
+    // 動次畫蛇身
     for (var i = 0; i < snake.body.length; i++) {
         //console.log(snake);
         context.fillRect(
+            // 空格 縫隙
             snake.body[i].x * mapSize + 1,
             snake.body[i].y * mapSize + 1,
             mapSize - 1,
-            mapSize - 1
+            mapSize - 1,
+
         )
+        console.log(snake.body[i].x * mapSize + 1);
     }
+    // 畫蛇點心
     context.fillStyle = 'red'
     context.fillRect(
         desert.x * mapSize + 1,
         desert.y * mapSize + 1,
-        //上下左右 都空一個像素出來
-        mapSize - 1,
+        //上下左右 都隔一個像素出來
+        mapSize - 10,
         mapSize - 1
     )
 }
 
 
-//<----------算狀態 畫畫面 (38行呼叫) ---地圖持續更新----->
+//<----------算狀態 動作畫面 (38行呼叫) ---一般動-蛇掛-吃東西----->
 function gameRoutine() {
     // 移動3態
     // 紅字
     moveSnake();
 
     // GG
-    if (snakeGG()) {
+    if (snakeOver()) {
         gg();
         // gg後就回gameroutine
         return;
@@ -156,9 +162,13 @@ function gameRoutine() {
     latestCanvas();
 }
 
+//gg 裡面間隔清空
+function gg() {
+    clearInterval(gameInterval);
+}
 
 // 蛇掛了 圖樣
-function snakeGG() {
+function snakeOver() {
 
     // 撞牆
     if (snake.body[0].x < 0) {
@@ -173,16 +183,12 @@ function snakeGG() {
 
     // 撞身體 hit body
     for (var i = 1; i < snake.body.length; i++) {
-        // 問
+        // 假如蛇頭疊身體 (===號比== 嚴謹 因為不會亂轉換)
         if (snake.body[0].x === snake.body[i].x && snake.body[0].y === snake.body[i].y) {
             return true;
         }
     }
     return false
-}
-
-function snakeOver() {
-    clearInterval(gameInterval);
 }
 
 // <----------移動蛇期間---------->
