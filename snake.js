@@ -28,6 +28,28 @@ function gamePlay() {
     updateGameLevel(1);
 }
 
+function gamePlay() {
+    snake = {
+        body: { x: 10, y: 10 },
+        size: 4,
+        direction: { x: 0, y: 1 }
+    }
+    placeCherry();
+    updateScore(0);
+    updateGameLevel(1);
+}
+
+
+function newGameInterval(newLevel) {
+    level = 1;
+    if (gameInterval) {
+        clearInterval(gameInterval);
+    }
+    gameInterval = setInterval(gameRoutine, 100 / level);
+}
+
+
+
 //??畫面 時單時偶?
 //////////////1.畫 面////////////////
 
@@ -44,6 +66,9 @@ function updateGameLevel(newLevel) {
     gameInterval = setInterval(gameRoutine, 100 / level);
     //console.log(gameInterval);
 }
+
+
+
 
 // 成绩更新
 function updateScore(newScore) {
@@ -116,7 +141,6 @@ function latestCanvas() {
     //區塊 左上角x y坐標 到區塊的寬度 跟高度
     context.fillRect(0, 0, canvas.width, canvas.height);
 
-    context.fillStyle = "lime";
     // 動次畫蛇身
     for (var i = 0; i < snake.body.length; i++) {
         //console.log(snake);
@@ -128,10 +152,14 @@ function latestCanvas() {
             mapSize - 1,
 
         )
+        context.fillStyle = "lime";
+        for (var i = 0; i < snake.body.length; i++) {
+            context.fillRect
+        }
         console.log(snake.body[i].x * mapSize + 1);
     }
     // 畫蛇點心
-    context.fillStyle = 'red'
+    context.fillStyle = 'red';
     context.fillRect(
         desert.x * mapSize + 1,
         desert.y * mapSize + 1,
@@ -140,6 +168,12 @@ function latestCanvas() {
         mapSize - 1
     )
 }
+
+context.fillStyle = "red",
+    context.fillRect(
+        cherry.x * mapGrid + 1,
+        cherry.y * mapGrid + 1,
+    )
 
 
 //<----------算狀態 動作畫面 (38行呼叫) ---一般動-蛇掛-吃東西----->
