@@ -1,4 +1,3 @@
-// 60*60 像素
 var mapSize = 20;
 
 // 格子60*60
@@ -26,26 +25,6 @@ function gamePlay() {
     putDesert();
     updateScore(0);
     updateGameLevel(1);
-}
-
-function gamePlay() {
-    snake = {
-        body: { x: 10, y: 10 },
-        size: 4,
-        direction: { x: 0, y: 1 }
-    }
-    placeCherry();
-    updateScore(0);
-    updateGameLevel(1);
-}
-
-
-function newGameInterval(newLevel) {
-    level = 1;
-    if (gameInterval) {
-        clearInterval(gameInterval);
-    }
-    gameInterval = setInterval(gameRoutine, 100 / level);
 }
 
 
@@ -140,40 +119,35 @@ function latestCanvas() {
     context.fillStyle = "lightgray";
     //區塊 左上角x y坐標 到區塊的寬度 跟高度
     context.fillRect(0, 0, canvas.width, canvas.height);
-
+    context.fillStyle = "lime";
     // 動次畫蛇身
     for (var i = 0; i < snake.body.length; i++) {
         //console.log(snake);
         context.fillRect(
-            // 空格 縫隙
-            snake.body[i].x * mapSize + 1,
-            snake.body[i].y * mapSize + 1,
-            mapSize - 1,
-            mapSize - 1,
+                // 空格 縫隙
+                snake.body[i].x * mapSize + 1,
+                snake.body[i].y * mapSize + 1,
+                // snake.body[i].x * mapSize - 1,
+                // snake.body[i].y * mapSize - 1,
+                mapSize - 1,
+                mapSize - 1,
+            )
+            // console.log(snake.body[i].x * mapSize + 1);
 
-        )
-        context.fillStyle = "lime";
-        for (var i = 0; i < snake.body.length; i++) {
-            context.fillRect
-        }
-        console.log(snake.body[i].x * mapSize + 1);
-    }
+    };
+
+
     // 畫蛇點心
     context.fillStyle = 'red';
     context.fillRect(
         desert.x * mapSize + 1,
         desert.y * mapSize + 1,
         //上下左右 都隔一個像素出來
-        mapSize - 10,
+        mapSize - 1,
         mapSize - 1
     )
 }
 
-context.fillStyle = "red",
-    context.fillRect(
-        cherry.x * mapGrid + 1,
-        cherry.y * mapGrid + 1,
-    )
 
 
 //<----------算狀態 動作畫面 (38行呼叫) ---一般動-蛇掛-吃東西----->
@@ -237,6 +211,7 @@ function moveSnake() {
     if (snake.body.length > snake.size) {
         snake.body.pop();
     }
+
 }
 
 // function updateCanvas() {
